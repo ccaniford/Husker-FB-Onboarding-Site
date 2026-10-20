@@ -1247,6 +1247,16 @@
   .action:hover .action-arrow { transform: translateX(4px); color: var(--husker-red); }
   .action:hover .action-tag { color: var(--cream); border-color: var(--cream); }
 
+  /* Non-clickable action card (no link) */
+  .action.static { cursor: default; }
+  .action.static:hover {
+    background: var(--cream);
+    color: var(--ink);
+    transform: none;
+    box-shadow: none;
+  }
+  .action.static:hover .action-tag { color: inherit; border-color: currentColor; }
+
   .action-top {
     display: flex;
     justify-content: space-between;
@@ -2022,9 +2032,111 @@
     background: var(--husker-red);
     color: var(--cream);
   }
+
+  /* ========== ACCESS CODE GATE ========== */
+  #accessGate { display: none; }
+  html.gate-locked #accessGate {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: var(--ink);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  html.gate-locked body { overflow: hidden; }
+  html.gate-locked body > *:not(#accessGate):not(script) { display: none !important; }
+  .gate-card {
+    background: var(--cream);
+    border: 3px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--husker-red);
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+  }
+  .gate-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--husker-red);
+    margin-bottom: 10px;
+  }
+  .gate-card h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 34px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .gate-card p.gate-sub {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .gate-card input {
+    width: 100%;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-align: center;
+    background: white;
+    border: 2px solid var(--ink);
+    margin-bottom: 14px;
+  }
+  .gate-card input:focus { outline: 3px solid var(--husker-red); outline-offset: 2px; }
+  .gate-card input.error { border-color: var(--husker-red); }
+  .gate-card button {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--husker-red);
+    color: var(--cream);
+    border: 2px solid var(--ink);
+    font-family: 'Anton', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .gate-card button:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+  .gate-card button:disabled { opacity: 0.6; cursor: wait; }
+  .gate-error {
+    min-height: 20px;
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--husker-red);
+  }
 </style>
+<script>
+  // Show the access gate before anything renders
+  (function() {
+    var ok = false;
+    try { ok = sessionStorage.getItem('gbrUnlocked') === '1'; } catch (e) {}
+    if (!ok) document.documentElement.classList.add('gate-locked');
+  })();
+</script>
 </head>
 <body>
+<div id="accessGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <form class="gate-card" id="gateForm" autocomplete="off" novalidate>
+    <div class="gate-eyebrow">Nebraska Football</div>
+    <h1 id="gateTitle">2027 Player Onboarding</h1>
+    <p class="gate-sub">Enter your access code to continue.</p>
+    <label for="gateCode" style="position:absolute;left:-9999px;">Access code</label>
+    <input type="password" id="gateCode" name="accessCode" placeholder="ACCESS CODE" autocomplete="off" autocapitalize="off" spellcheck="false" />
+    <button type="submit" id="gateBtn">Enter</button>
+    <div class="gate-error" id="gateError" role="alert"></div>
+  </form>
+</div>
 
 <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -3024,11 +3136,11 @@
             <h4>Complete FAFSA</h4>
             <p>Required to access federal student aid.</p>
           </a>
-          <a class="action" href="https://health.unl.edu/new-student-health-requirement" target="_blank" rel="noopener">
-            <div class="action-top"><span class="action-tag required">Health Center</span><span class="action-arrow">→</span></div>
+          <div class="action static">
+            <div class="action-top"><span class="action-tag required">Health Center</span></div>
             <h4>Submit Immunization</h4>
             <p>Send immunization records to UNL Health Center.</p>
-          </a>
+          </div>
           <a class="action" href="https://duo.com/product/multi-factor-authentication-mfa/duo-mobile-app" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag">After registration</span><span class="action-arrow">→</span></div>
             <h4>Set Up Duo Mobile</h4>
@@ -5058,6 +5170,65 @@
     });
     input.addEventListener('blur', function() { setTimeout(hide, 120); });
     document.getElementById('travelSurveyForm').addEventListener('reset', hide);
+  })();
+
+  // ========== ACCESS CODE GATE ==========
+  // Deters casual visitors only: the page content ships in this file, so this is
+  // not real security. The code is stored as a SHA-256 hash, not plain text.
+  (function() {
+    var HASH = '2e1b7fd41670b5f44098132f01da12486280c63cdbcac93b3a48cf9edfc9a0c4';
+    var form = document.getElementById('gateForm');
+    if (!form) return;
+    var input = document.getElementById('gateCode');
+    var btn = document.getElementById('gateBtn');
+    var err = document.getElementById('gateError');
+    var fails = 0;
+
+    if (document.documentElement.classList.contains('gate-locked')) {
+      setTimeout(function() { input.focus(); }, 50);
+    }
+
+    function sha256Hex(str) {
+      var data = new TextEncoder().encode(str);
+      return crypto.subtle.digest('SHA-256', data).then(function(buf) {
+        return Array.from(new Uint8Array(buf)).map(function(b) {
+          return b.toString(16).padStart(2, '0');
+        }).join('');
+      });
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      err.textContent = '';
+      input.classList.remove('error');
+      var code = input.value.trim();
+      if (!code) { input.classList.add('error'); err.textContent = 'Please enter the access code.'; return; }
+      if (!window.crypto || !crypto.subtle) {
+        err.textContent = 'Please open this page over a secure (https) link.';
+        return;
+      }
+      btn.disabled = true;
+      sha256Hex('gbr-portal:' + code).then(function(hex) {
+        if (hex === HASH) {
+          try { sessionStorage.setItem('gbrUnlocked', '1'); } catch (x) {}
+          document.documentElement.classList.remove('gate-locked');
+          input.value = '';
+          window.scrollTo(0, 0);
+        } else {
+          fails++;
+          input.classList.add('error');
+          err.textContent = 'That code isn\u2019t correct. Please try again.';
+          input.select();
+          // brief slowdown after repeated misses
+          setTimeout(function() { btn.disabled = false; }, Math.min(500 * fails, 4000));
+          return;
+        }
+        btn.disabled = false;
+      }).catch(function() {
+        err.textContent = 'Something went wrong. Please refresh and try again.';
+        btn.disabled = false;
+      });
+    });
   })();
 
   // ========== SCROLL PROGRESS ==========
