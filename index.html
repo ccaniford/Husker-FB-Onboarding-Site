@@ -547,6 +547,38 @@
     background: var(--paper);
   }
 
+
+  /* ========== ALL-STAR QUESTIONNAIRE ========== */
+  .cond[hidden] { display: none !important; }
+  .choice-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .form-field label.choice {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    background: white;
+    border: 2px solid var(--ink);
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .form-field label.choice:hover { background: var(--paper); }
+  .form-field label.choice input {
+    width: 18px; height: 18px; margin: 0; padding: 0;
+    accent-color: var(--husker-red);
+    box-shadow: none;
+  }
+  .form-field label.choice:has(input:checked) {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .choice-group.error label.choice { border-color: var(--husker-red); }
+
   /* Recipients list */
   .recipient-list {
     display: grid;
@@ -2879,6 +2911,14 @@
             <h4>Travel Survey</h4>
             <p>Legal name, date of birth, home address, closest airports, and TSA PreCheck number so we can book your arrival on campus. Takes about 2 minutes.</p>
           </a>
+          <a class="action" href="#all-star-survey" data-open-panel="all-star-survey">
+            <div class="action-top">
+              <span class="action-tag required">All-Star Games</span>
+              <span class="action-arrow">→</span>
+            </div>
+            <h4>All-Star Game Questionnaire</h4>
+            <p>Tell us if you've been selected for a high school all-star game, which one, and the dates you'll be away. Takes about 1 minute.</p>
+          </a>
         </div>
       </div>
 
@@ -3022,6 +3062,114 @@
           <div class="done-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h3>Submission Successful</h3>
           <p>Thank you — your travel information was received. Football Operations will use it to book your arrival on campus. If you need to correct anything, contact Operations.</p>
+          <button type="button" class="form-submit" data-open-panel="operations" data-scroll-to="ops-action-items">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Return to Operations Page
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================
+         02c OPERATIONS · ALL-STAR GAME QUESTIONNAIRE (sub-page)
+         ============================================ -->
+    <div class="panel" data-panel="all-star-survey">
+      <div class="panel-header">
+        <div class="panel-num">02</div>
+        <div class="panel-title-block">
+          <div class="eyebrow">Operations · All-Star Games</div>
+          <h2>All-Star Game Questionnaire</h2>
+          <p class="desc">Let us know if you've been selected for a high school all-star game so we can plan around your dates.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="back-link" data-open-panel="operations">← Back to Operations</button>
+
+        <form id="allStarForm" class="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-field" style="margin-bottom:0;">
+              <label for="asFirst">First Name <span class="req">*</span></label>
+              <input type="text" id="asFirst" name="firstName" required autocomplete="given-name" />
+            </div>
+            <div class="form-field" style="margin-bottom:0;">
+              <label for="asLast">Last Name <span class="req">*</span></label>
+              <input type="text" id="asLast" name="lastName" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="form-field" style="margin-top:16px;">
+            <label>Have you been selected to play in a high school all-star game? <span class="req">*</span></label>
+            <div class="choice-group" id="asSelectedGroup" role="radiogroup">
+              <label class="choice"><input type="radio" name="selected" value="Yes" /> Yes</label>
+              <label class="choice"><input type="radio" name="selected" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="form-field cond" id="asPlanWrap" hidden>
+            <label>Do you plan to participate in any of these games? <span class="req">*</span></label>
+            <div class="choice-group" id="asPlanGroup" role="radiogroup">
+              <label class="choice"><input type="radio" name="plans" value="Yes" /> Yes</label>
+              <label class="choice"><input type="radio" name="plans" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="cond" id="asDetailsWrap" hidden>
+            <div class="form-field">
+              <label for="asGame">Which all-star game will you be playing in? <span class="req">*</span></label>
+              <textarea id="asGame" name="game" class="short" rows="2" placeholder="e.g., Polynesian Bowl, Under Armour All-America Game"></textarea>
+              <div class="form-hint">If it's more than one game, list each one.</div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field" style="margin-bottom:0;">
+                <label for="asStart">Attending From <span class="req">*</span></label>
+                <input type="date" id="asStart" name="startDate" />
+              </div>
+              <div class="form-field" style="margin-bottom:0;">
+                <label for="asEnd">Attending Through <span class="req">*</span></label>
+                <input type="date" id="asEnd" name="endDate" />
+              </div>
+            </div>
+            <div class="form-hint" style="margin-top:8px;">Enter the full span of dates you'll be away, including travel days.</div>
+          </div>
+
+          <div class="form-hp" aria-hidden="true">
+            <label for="asWebsite">Leave this field empty</label>
+            <input type="text" id="asWebsite" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="form-error" id="allStarError" style="margin-top:16px;"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="form-submit" id="allStarSubmit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              Submit Questionnaire
+            </button>
+            <button type="reset" class="form-reset">Clear Form</button>
+          </div>
+          <p class="survey-privacy">Your responses go to the Football Operations team. Please don't submit more than once unless you need to correct something.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================
+         02d OPERATIONS · ALL-STAR QUESTIONNAIRE SUBMITTED (sub-page)
+         ============================================ -->
+    <div class="panel" data-panel="all-star-done">
+      <div class="panel-header">
+        <div class="panel-num">02</div>
+        <div class="panel-title-block">
+          <div class="eyebrow">Operations · All-Star Games</div>
+          <h2>All Set</h2>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="done-card">
+          <div class="done-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>Submission Successful</h3>
+          <p>Thank you — your all-star game information was received. Football Operations will use it to plan around your dates. If anything changes, contact Operations.</p>
           <button type="button" class="form-submit" data-open-panel="operations" data-scroll-to="ops-action-items">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Return to Operations Page
@@ -4922,7 +5070,7 @@
   // ========== SUB-PAGE NAVIGATION (Travel Survey) ==========
   // Survey pages live outside the sidebar; Operations stays highlighted while on them.
   (function() {
-    var SUBPAGES = ['travel-survey', 'travel-survey-done'];
+    var SUBPAGES = ['travel-survey', 'travel-survey-done', 'all-star-survey', 'all-star-done'];
     var returnPanel = 'operations';
 
     function activeName() {
@@ -5170,6 +5318,130 @@
     });
     input.addEventListener('blur', function() { setTimeout(hide, 120); });
     document.getElementById('travelSurveyForm').addEventListener('reset', hide);
+  })();
+
+  // ========== ALL-STAR QUESTIONNAIRE -> GOOGLE SHEET ==========
+  (function() {
+    var form = document.getElementById('allStarForm');
+    if (!form) return;
+
+    // PASTE the Google Apps Script Web App URL for the All-Star sheet here (ends in /exec).
+    // See AllStar_AppsScript.gs for setup instructions.
+    var ALLSTAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbycUgDbRk8urblM9WSesT46IT3Jb1hBLqaLUTPuVh-jbgc7Fb0BSH2NnWTWwxxVGNZw3A/exec';
+
+    var errorBox = document.getElementById('allStarError');
+    var submitBtn = document.getElementById('allStarSubmit');
+    var planWrap = document.getElementById('asPlanWrap');
+    var detailsWrap = document.getElementById('asDetailsWrap');
+
+    function radio(name) {
+      var el = form.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : '';
+    }
+    function val(id) { return document.getElementById(id).value.trim(); }
+    function showError(msg) { errorBox.textContent = msg; errorBox.classList.add('visible'); }
+    function clearError() { errorBox.classList.remove('visible'); errorBox.textContent = ''; }
+    function markInvalid(el) {
+      el.classList.add('error');
+      el.addEventListener('input', function() { el.classList.remove('error'); }, { once: true });
+      el.addEventListener('change', function() { el.classList.remove('error'); }, { once: true });
+    }
+
+    // Show/hide follow-up questions based on the answers above them
+    function sync() {
+      var selected = radio('selected');
+      var plans = radio('plans');
+      planWrap.hidden = selected !== 'Yes';
+      detailsWrap.hidden = !(selected === 'Yes' && plans === 'Yes');
+    }
+    form.addEventListener('change', sync);
+    form.addEventListener('reset', function() {
+      clearError();
+      form.querySelectorAll('.error').forEach(function(f) { f.classList.remove('error'); });
+      setTimeout(sync, 0);
+    });
+    sync();
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearError();
+
+      // Honeypot
+      if (val('asWebsite')) { form.reset(); window.goPortalPanel('all-star-done'); return; }
+
+      form.querySelectorAll('.error').forEach(function(f) { f.classList.remove('error'); });
+      var bad = [];
+      ['asFirst', 'asLast'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (!el.value.trim()) bad.push(el);
+      });
+
+      var selected = radio('selected');
+      var plans = selected === 'Yes' ? radio('plans') : '';
+      if (!selected) bad.push(document.getElementById('asSelectedGroup'));
+      if (selected === 'Yes' && !plans) bad.push(document.getElementById('asPlanGroup'));
+
+      var game = '', start = '', end = '';
+      if (selected === 'Yes' && plans === 'Yes') {
+        var gameEl = document.getElementById('asGame');
+        var startEl = document.getElementById('asStart');
+        var endEl = document.getElementById('asEnd');
+        game = gameEl.value.trim(); start = startEl.value; end = endEl.value;
+        if (!game) bad.push(gameEl);
+        if (!start) bad.push(startEl);
+        if (!end) bad.push(endEl);
+        if (start && end && end < start) {
+          markInvalid(endEl);
+          showError('The end date can\u2019t be before the start date.');
+          endEl.focus();
+          return;
+        }
+      }
+
+      if (bad.length) {
+        bad.forEach(markInvalid);
+        showError('Please answer all required questions.');
+        var first = bad[0];
+        if (first.focus && first.tagName !== 'DIV') first.focus(); else first.scrollIntoView({ block: 'center' });
+        return;
+      }
+
+      if (!ALLSTAR_ENDPOINT) {
+        showError('This questionnaire is not connected yet. Please email Football Operations your info directly.');
+        return;
+      }
+
+      var payload = {
+        firstName: val('asFirst'),
+        lastName: val('asLast'),
+        selectedForAllStar: selected,
+        plansToParticipate: plans,
+        allStarGame: game,
+        startDate: start, // YYYY-MM-DD
+        endDate: end,     // YYYY-MM-DD
+        source: 'Onboarding Portal'
+      };
+
+      submitBtn.disabled = true;
+      var originalLabel = submitBtn.innerHTML;
+      submitBtn.textContent = 'Sending…';
+
+      // text/plain avoids a CORS preflight, which Apps Script can't answer.
+      fetch(ALLSTAR_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).then(function() {
+        form.reset();
+        window.goPortalPanel('all-star-done');
+      }).catch(function() {
+        showError('Something went wrong sending your questionnaire. Check your connection and try again.');
+      }).then(function() {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalLabel;
+      });
+    });
   })();
 
   // ========== ACCESS CODE GATE ==========
