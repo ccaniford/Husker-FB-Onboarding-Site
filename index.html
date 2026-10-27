@@ -2065,6 +2065,142 @@
     color: var(--cream);
   }
 
+  /* ========== ACTION-ITEM HIGHLIGHT (in department tabs) ========== */
+  .panel:not([data-panel="action-items"]):not([data-sync-panel]) .action[data-ai-item] {
+    border-color: var(--husker-red);
+    border-top-width: 6px;
+    box-shadow: 4px 4px 0 var(--husker-red);
+    padding-bottom: 38px;
+  }
+  .panel:not([data-panel="action-items"]):not([data-sync-panel]) .action[data-ai-item]::after {
+    content: '★ Action Item';
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--husker-red);
+    font-weight: 700;
+  }
+  .panel:not([data-panel="action-items"]):not([data-sync-panel]) .section[data-ai-item] {
+    border-left: 6px solid var(--husker-red);
+    padding-left: 16px;
+    background: linear-gradient(90deg, rgba(228, 28, 56, 0.06), transparent 60%);
+  }
+  .panel:not([data-panel="action-items"]):not([data-sync-panel]) .section[data-ai-item] > .section-header::after {
+    content: '★ Action Item';
+    margin-left: auto;
+    padding: 4px 10px;
+    border: 2px solid var(--husker-red);
+    color: var(--husker-red);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  /* ========== MOBILE FRIENDLY ========== */
+  .nav-toggle { display: none; }
+  .content { min-width: 0; }
+  .info-list dd, .check-desc, .staff-contact a, .action p, .callout p, .recipient-title { overflow-wrap: anywhere; }
+  img, svg, video { max-width: 100%; }
+
+  @media (max-width: 1024px) {
+    .main { padding: 0 16px 40px; gap: 0; }
+    .sidebar {
+      position: sticky; top: 0; z-index: 60;
+      margin: 0 -16px 20px; padding: 10px 16px;
+      background: var(--cream);
+      border-bottom: 2px solid var(--ink);
+    }
+    .sidebar-label { display: none; }
+    .nav-toggle {
+      display: flex; align-items: center; gap: 12px;
+      width: 100%; min-height: 48px; padding: 10px 14px;
+      background: var(--ink); color: var(--cream);
+      border: 2px solid var(--ink);
+      font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 800;
+      letter-spacing: 1px; text-transform: uppercase; text-align: left;
+      cursor: pointer;
+    }
+    .nav-toggle-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px;
+      color: rgba(245, 241, 234, 0.6);
+    }
+    .nav-toggle-current { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .nav-toggle svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.2s; }
+    .sidebar.open .nav-toggle svg { transform: rotate(180deg); }
+    .nav-list {
+      display: none;
+      position: absolute; left: 16px; right: 16px; top: calc(100% - 2px);
+      max-height: 65vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      z-index: 70;
+    }
+    .sidebar.open .nav-list { display: block; }
+    .nav-item { border-right: none !important; }
+    .nav-item button { min-height: 48px; font-size: 14px; }
+    .nav-item button:hover { padding-left: 18px; }
+  }
+
+  @media (max-width: 640px) {
+    .ticker { display: none; }
+    .masthead { padding: 12px 16px; }
+    .hero { padding: 28px 16px 32px; }
+    .hero h1 { font-size: clamp(40px, 13vw, 60px); margin-bottom: 16px; }
+    .hero p.lede { font-size: 15px; }
+    .hero-keydates { padding: 18px; }
+    .panel-header { margin-bottom: 24px; padding-bottom: 16px; }
+    .panel-num { display: none; }
+    .panel-title-block h2 { font-size: 34px; line-height: 1; }
+    .panel-title-block .desc { font-size: 15px; line-height: 1.5; }
+    .section { margin-bottom: 32px; }
+    .section-header { margin-bottom: 14px; flex-wrap: wrap; gap: 6px 12px; }
+    .callout { padding: 16px; }
+    .actions-grid, .staff-grid { grid-template-columns: 1fr; }
+    .action { padding: 16px; }
+    .check-item { padding: 14px 12px; gap: 12px; }
+    .phase-card { padding: 20px 18px; }
+    .recipient-list { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr !important; gap: 16px; }
+    .form-field input, .form-field textarea, .form-field select,
+    .contact-form input, .contact-form textarea, .contact-form select { font-size: 16px; }
+    .form-actions { flex-direction: column; align-items: stretch; }
+    .form-submit, .form-reset { width: 100%; justify-content: center; min-height: 48px; }
+    .calendar-btn { width: 100%; justify-content: center; min-height: 44px; }
+    .form-field label.choice { flex: 1; justify-content: center; }
+    .back-link { min-height: 44px; }
+    .done-card { padding: 32px 18px; }
+    .gate-card { padding: 28px 20px; box-shadow: 5px 5px 0 var(--husker-red); }
+    .gate-card h1 { font-size: 28px; }
+    .day-name { font-size: 20px; }
+    /* Tighter hero so the menu bar is reached after about one screen */
+    .hero { padding: 22px 16px 24px; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 2px; margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(34px, 11vw, 48px); margin-bottom: 12px; }
+    .hero p.lede { font-size: 14px; line-height: 1.5; margin-bottom: 18px; }
+    .hero-keydates { padding: 14px 16px; }
+    .hero-keydates h3 { margin-bottom: 8px; font-size: 10px; }
+    .keydate { padding: 8px 0; }
+    .keydate .day { font-size: 20px; }
+    .keydate .label { font-size: 10px; letter-spacing: 1.5px; }
+  }
+
+  /* Touch screens have no real hover: stop cards from staying "pressed" after a tap */
+  @media (hover: none) {
+    .action:hover { background: var(--cream); color: var(--ink); transform: none; box-shadow: none; }
+    .action:hover .action-arrow { transform: none; color: inherit; }
+    .action:hover .action-tag { color: inherit; border-color: currentColor; }
+    .phase-card:hover { transform: none; box-shadow: none; }
+    .nav-item button:hover { background: transparent; color: var(--ink); padding-left: 18px; }
+    .nav-item.active button:hover { background: var(--husker-red); color: var(--cream); }
+    .check-item:hover { background: transparent; }
+  }
+
   /* ========== ACCESS CODE GATE ========== */
   #accessGate { display: none; }
   html.gate-locked #accessGate {
@@ -2217,7 +2353,7 @@
       </div>
       <div class="keydate">
         <div class="day">SUN · JAN 10</div>
-        <div class="label">First Team Meeting · 6:00 PM</div>
+        <div class="label">Tentative First Team Meeting · 6:00 PM</div>
       </div>
       <div class="keydate">
         <div class="day">MON · JAN 11</div>
@@ -2240,15 +2376,20 @@
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navList">
+      <span class="nav-toggle-label">Menu</span>
+      <span class="nav-toggle-current" id="navCurrent">Overview &amp; Staff</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
     <div class="sidebar-label">Departments</div>
     <ul class="nav-list" id="navList">
       <li class="nav-item active" data-tab="overview"><button><span class="nav-num">00</span> Overview & Staff</button></li>
-      <li class="nav-item" data-tab="schedule"><button><span class="nav-num">01</span> Move-In Schedule</button></li>
-      <li class="nav-item" data-tab="operations"><button><span class="nav-num">02</span> Operations</button></li>
-      <li class="nav-item" data-tab="academics"><button><span class="nav-num">03</span> Academics & Recruiting</button></li>
-      <li class="nav-item" data-tab="housing"><button><span class="nav-num">04</span> Housing</button></li>
-      <li class="nav-item" data-tab="medicine"><button><span class="nav-num">05</span> Athletic Training</button></li>
-      <li class="nav-item" data-tab="science"><button><span class="nav-num">06</span> Sports Science</button></li>
+      <li class="nav-item" data-tab="schedule"><button><span class="nav-num">01</span> Tentative Move-In Schedule</button></li>
+      <li class="nav-item" data-tab="action-items"><button><span class="nav-num">02</span> Action Items</button></li>
+      <li class="nav-item" data-tab="operations"><button><span class="nav-num">03</span> Operations</button></li>
+      <li class="nav-item" data-tab="academics"><button><span class="nav-num">04</span> Academics & Recruiting</button></li>
+      <li class="nav-item" data-tab="housing"><button><span class="nav-num">05</span> Housing</button></li>
+      <li class="nav-item" data-tab="medicine"><button><span class="nav-num">06</span> Athletic Training</button></li>
       <li class="nav-item" data-tab="nutrition"><button><span class="nav-num">07</span> Nutrition</button></li>
       <li class="nav-item" data-tab="equipment"><button><span class="nav-num">08</span> Equipment</button></li>
       <li class="nav-item" data-tab="video"><button><span class="nav-num">09</span> Video & Tech</button></li>
@@ -2304,7 +2445,7 @@
             <div class="phase-num">03</div>
             <div class="phase-label">First Week</div>
             <div class="phase-title">January 10 → January 16</div>
-            <p>First Team Meeting on Sunday, January 10 at 6:00 PM. Workouts and classes begin Monday, January 11, and your first full week as a Husker runs through Saturday, January 16.</p>
+            <p>Tentative First Team Meeting on Sunday, January 10 at 6:00 PM. Workouts and classes begin Monday, January 11, and your first full week as a Husker runs through Saturday, January 16.</p>
           </div>
         </div>
       </div>
@@ -2593,16 +2734,22 @@
       <div class="panel-header">
         <div class="panel-num">01</div>
         <div class="panel-title-block">
-          <div class="eyebrow">Winter Move-In Weekend · Two Days</div>
-          <h2>Move-In Schedule</h2>
+          <div class="eyebrow">Tentative · Winter Move-In Weekend · Two Days</div>
+          <h2>Tentative Move-In Schedule</h2>
           <p class="desc">Your weekend at a glance. Saturday is the heavy lift — move-in, medical, performance testing, lunch, and the player + parent informational meeting. Sunday is dinner with the team and your first official team meeting.</p>
         </div>
       </div>
 
+      <div class="callout warning">
+        <div class="callout-label">⚠ Tentative</div>
+        <h4>Times and Locations Are Subject to Change</h4>
+        <p>This is the planned schedule for move-in weekend. Final times and locations will be confirmed through Teamworks closer to move-in.</p>
+      </div>
+
       <div class="callout">
         <div class="callout-label">★ Bring Your Family</div>
-        <h4>The 12:45 PM Meeting Is for Players AND Parents</h4>
-        <p>Saturday's 12:45 PM session in the Team Room is the one chance for parents and guardians to hear directly from six departments — Nutrition, Athletic Medicine, Video/Tech, Player Development, Operations, and Sports Psychology. Plan to be there together.</p>
+        <h4>The Tentative 12:45 PM Meeting Is for Players AND Parents</h4>
+        <p>Saturday's tentative 12:45 PM session in the Team Room is the one chance for parents and guardians to hear directly from six departments — Nutrition, Athletic Medicine, Video/Tech, Player Development, Operations, and Sports Psychology. Plan to be there together.</p>
       </div>
 
       <div class="calendar-row">
@@ -2617,7 +2764,7 @@
         <div class="day-header">
           <div class="day-date">09</div>
           <div class="day-title-block">
-            <div class="day-eyebrow">◆ Day One</div>
+            <div class="day-eyebrow">◆ Day One · Tentative</div>
             <div class="day-name">Saturday · January 2027</div>
           </div>
           <div class="day-meta">
@@ -2742,7 +2889,7 @@
         <div class="day-header">
           <div class="day-date">10</div>
           <div class="day-title-block">
-            <div class="day-eyebrow">◆ Day Two</div>
+            <div class="day-eyebrow">◆ Day Two · Tentative</div>
             <div class="day-name">Sunday · January 2027</div>
           </div>
           <div class="day-meta">
@@ -2790,11 +2937,389 @@
     </div>
 
     <!-- ============================================
+         02 ACTION ITEMS
+         ============================================ -->
+    <div class="panel" data-panel="action-items">
+      <div class="panel-header">
+        <div class="panel-num">02</div>
+        <div class="panel-title-block">
+          <div class="eyebrow">Everything In One Place</div>
+          <h2>Action Items</h2>
+          <p class="desc">Every task from every department, grouped together. Each item also lives in its own department tab if you want more detail.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Operations</h3>
+          <span class="count">06 tasks</span>
+        </div>
+        <div class="actions-grid">
+          <a class="action" data-ai-item href="https://teamworks.com/" target="_blank" rel="noopener">
+            <div class="action-top">
+              <span class="action-tag required">Required</span>
+              <span class="action-arrow">→</span>
+            </div>
+            <h4>Download Teamworks</h4>
+            <p>Primary communications platform — calendars, schedules, travel, forms.</p>
+          </a>
+          <a class="action" data-ai-item href="https://parking.unl.edu/" target="_blank" rel="noopener">
+            <div class="action-top">
+              <span class="action-tag">If applicable</span>
+              <span class="action-arrow">→</span>
+            </div>
+            <h4>Parking Permit</h4>
+            <p>Bringing a vehicle? Buy your pass through UNL Parking & Transit.</p>
+          </a>
+          <a class="action" data-ai-item href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener">
+            <div class="action-top">
+              <span class="action-tag required">Required</span>
+              <span class="action-arrow">→</span>
+            </div>
+            <h4>Pre-Set Banking Card</h4>
+            <p>Receive your athletics expense card. Direct deposit set up via MyRed.</p>
+          </a>
+          <a class="action" data-ai-item href="https://scsapps.unl.edu/NCardOnlineApplication/" target="_blank" rel="noopener">
+            <div class="action-top">
+              <span class="action-tag">Pre-arrival</span>
+              <span class="action-arrow">→</span>
+            </div>
+            <h4>NCard Online Application</h4>
+            <p>Submit your NCard application before arrival. Pickup on Move-In Day at OLC.</p>
+          </a>
+          <a class="action" data-ai-item href="#travel-survey" data-open-panel="travel-survey" data-link="travel-survey">
+            <div class="action-top">
+              <span class="action-tag required">Pre-arrival</span>
+              <span class="action-arrow">→</span>
+            </div>
+            <h4>Travel Survey</h4>
+            <p>Legal name, date of birth, home address, closest airports, and TSA PreCheck number so we can book your arrival on campus. Takes about 2 minutes.</p>
+          </a>
+          <a class="action" data-ai-item href="#all-star-survey" data-open-panel="all-star-survey">
+            <div class="action-top">
+              <span class="action-tag required">All-Star Games</span>
+              <span class="action-arrow">→</span>
+            </div>
+            <h4>All-Star Game Questionnaire</h4>
+            <p>Tell us if you've been selected for a high school all-star game, which one, and the dates you'll be away. Takes about 1 minute.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Academics &amp; Recruiting</h3>
+          <span class="count">07 tasks</span>
+        </div>
+        <div class="actions-grid">
+          <a class="action" data-ai-item href="https://admissions.unl.edu/apply/" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag required">Pre-Admission</span><span class="action-arrow">→</span></div>
+            <h4>Apply for UNL Admission</h4>
+            <p>Submit application and pay application fee.</p>
+          </a>
+          <a class="action" data-ai-item href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag required">Required</span><span class="action-arrow">→</span></div>
+            <h4>Activate TrueYou Credentials</h4>
+            <p>Set up your login to access MyRed.</p>
+          </a>
+          <a class="action" data-ai-item href="https://web3.ncaa.org/ecwr3/register/CERTIFICATION?accountSubType=AMATEURISM" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag required">After Oct 1</span><span class="action-arrow">→</span></div>
+            <h4>NCAA Amateurism Cert.</h4>
+            <p>Request final NCAA Amateurism Certification.</p>
+          </a>
+          <a class="action" data-ai-item href="https://nse.unl.edu/" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag required">Required</span><span class="action-arrow">→</span></div>
+            <h4>New Student Enrollment</h4>
+            <p>Register for NSE — your gateway to first-semester classes.</p>
+          </a>
+          <a class="action" data-ai-item href="https://admissions.unl.edu/cost/financial-aid/" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag required">Financial Aid</span><span class="action-arrow">→</span></div>
+            <h4>Complete FAFSA</h4>
+            <p>Required to access federal student aid.</p>
+          </a>
+          <a class="action" data-ai-item href="https://duo.com/product/multi-factor-authentication-mfa/duo-mobile-app" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag">After registration</span><span class="action-arrow">→</span></div>
+            <h4>Set Up Duo Mobile</h4>
+            <p>Two-factor auth for TrueYou — required after class registration.</p>
+          </a>
+          <a class="action" href="#ai-transcripts" data-open-panel="ai-transcripts">
+            <div class="action-top"><span class="action-tag">Checklist</span><span class="action-arrow">→</span></div>
+            <h4>After Grad Transcripts</h4>
+            <p>Send proof of graduation and final transcripts, plus the mailing address to use.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Housing</h3>
+          <span class="count">01 task</span>
+        </div>
+        <div class="actions-grid">
+          <a class="action" href="#ai-housing" data-open-panel="ai-housing">
+            <div class="action-top"><span class="action-tag">Checklist</span><span class="action-arrow">→</span></div>
+            <h4>Housing</h4>
+            <p>Step-by-step checklist for applying for housing in MyRed.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Athletic Training</h3>
+          <span class="count">01 task</span>
+        </div>
+        <div class="actions-grid">
+          <a class="action" href="#ai-medical" data-open-panel="ai-medical">
+            <div class="action-top"><span class="action-tag">Checklist</span><span class="action-arrow">→</span></div>
+            <h4>Medical Forms</h4>
+            <p>The required medical forms and where to submit them in Smartabase.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Nutrition</h3>
+          <span class="count">02 tasks</span>
+        </div>
+        <div class="actions-grid">
+          <a class="action" data-ai-item href="https://www.redcardathletics.com/" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag required">Required</span><span class="action-arrow">→</span></div>
+            <h4>Download Red Card Athletics App</h4>
+            <p>Track your Husker Bucks balance and approved spending.</p>
+          </a>
+          <a class="action" data-ai-item href="mailto:kcoggin@huskers.com?subject=Dietary%20Restrictions%20%26%20Religious%20Beliefs&body=Hi%20Kristin%2C%0A%0AMy%20name%20is%3A%20%0A%0ADietary%20restrictions%20%2F%20allergies%20%2F%20intolerances%3A%0A%0AReligious%20beliefs%20that%20affect%20my%20meals%3A%0A%0AThanks%2C%0A">
+            <div class="action-top"><span class="action-tag required">Pre-arrival</span><span class="action-arrow">→</span></div>
+            <h4>Email Dietary Restrictions &amp; Religious Beliefs</h4>
+            <p>Email Kristin Coggin at <strong>kcoggin@huskers.com</strong> with any dietary restrictions, allergies, intolerances, and religious beliefs that affect your meals. Opens a pre-filled draft.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Equipment</h3>
+          <span class="count">01 task</span>
+        </div>
+        <div class="actions-grid">
+          <a class="action" data-ai-item href="https://mysizes.teamworksim.com/40/Athlete" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag required">Pre-arrival</span><span class="action-arrow">→</span></div>
+            <h4>Submit adidas Sizing</h4>
+            <p>Submit your gear sizes through the Teamworks sizing portal before arrival. <strong>Access Code: Huskers2027</strong> · Log in using the email address Jay Terry sent the invite to.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Video &amp; Tech</h3>
+          <span class="count">01 task</span>
+        </div>
+        <div class="actions-grid">
+          <a class="action" data-ai-item href="https://nebraska.edu/services/canvas/" target="_blank" rel="noopener">
+            <div class="action-top"><span class="action-tag">Recommended</span><span class="action-arrow">→</span></div>
+            <h4>Canvas Student</h4>
+            <p>Course content, assignments, and grades.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================
+         ACTION ITEMS POP-OUT · After Grad Transcripts
+         ============================================ -->
+    <div class="panel" data-panel="ai-transcripts" data-sync-panel="academics">
+      <div class="panel-header">
+        <div class="panel-num">02</div>
+        <div class="panel-title-block">
+          <div class="eyebrow">Action Items · Academics &amp; Recruiting</div>
+          <h2>After Grad Transcripts</h2>
+          <p class="desc">Send your proof of graduation and final transcripts after you graduate, using the mailing address below.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Action Items</span></button>
+      </div>
+
+<div class="section" data-ai-item>
+        <div class="section-header">
+          <h3>After Graduation</h3>
+          <span class="count">Transcripts</span>
+        </div>
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Send Proof of Graduation to Jena Johnson</div>
+              <div class="check-desc">Unofficial transcript with last term grades and graduation date — OR — letter on school letterhead with last term grades and graduation date. Email to <a href="mailto:jjohnson@huskers.com" class="inline-link">jjohnson@huskers.com</a>.</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Final HS / College Transcripts → UNL Admissions</div>
+              <div class="check-desc">Request your final high school transcript (and any college transcripts, if applicable) be sent directly to UNL Admissions.</div>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Final HS Transcript → NCAA Eligibility Center</div>
+              <div class="check-desc">Required for NCAA eligibility certification.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" data-ai-item>
+        <div class="section-header"><h3>Mailing Address</h3></div>
+        <div class="info-list">
+          <dl>
+            <dt>Recipient</dt><dd>Jena Johnson · Nebraska Athletics, Academics/Compliance</dd>
+            <dt>Street</dt><dd>800 Stadium Drive</dd>
+            <dt>City / Zip</dt><dd>Lincoln, NE 68588-0219</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Action Items</span></button>
+      </div>
+    </div>
+
+    <!-- ============================================
+         ACTION ITEMS POP-OUT · Housing
+         ============================================ -->
+    <div class="panel" data-panel="ai-housing" data-sync-panel="housing">
+      <div class="panel-header">
+        <div class="panel-num">02</div>
+        <div class="panel-title-block">
+          <div class="eyebrow">Action Items · Housing</div>
+          <h2>Housing</h2>
+          <p class="desc">Follow these steps in order to apply for housing. Tap a step to check it off.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Action Items</span></button>
+      </div>
+
+<div class="section" data-ai-item>
+        <div class="section-header">
+          <h3>Apply for Housing — Step by Step</h3>
+          <span class="count">12 steps</span>
+        </div>
+        <div class="checklist">
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">01 · Login to MyRed</div><div class="check-desc">Use your TrueYou credentials. <a href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener" class="inline-link">Open MyRed →</a></div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">02 · Click "Admissions"</div><div class="check-desc">In the red bar across the top of the page.</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">03 · Select "Undergraduate"</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">04 · Find "Important Links" → "Access the Housing Portal"</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">05 · Click "Apply for Housing"</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">06 · Choose 2026–2027 Academic Year contract → Save & Continue</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">07 · Complete all pages of contract</div><div class="check-desc">Click Save & Continue at each stage.</div><div class="check-desc" style="color: var(--husker-red); font-weight: 700; margin-top: 4px;">⚠ Scholarship athletes do NOT pay anything. If the system asks for payment, contact Thomas Bowling or Dr. Susan Elza ASAP.</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">08 · Complete signature page</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">09 · Watch for room assignment email</div><div class="check-desc">You'll receive an email with phase-two instructions.</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">10 · Login to MyRed and complete remaining info</div><div class="check-desc"><a href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener" class="inline-link">Open MyRed →</a></div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">11 · Select "All Access" meal plan</div><div class="check-desc">When prompted.</div></div></div>
+          <div class="check-item"><div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-content"><div class="check-text">12 · Roommate request? Email Thomas Bowling or Dr. Susan Elza ASAP</div></div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Action Items</span></button>
+      </div>
+    </div>
+
+    <!-- ============================================
+         ACTION ITEMS POP-OUT · Medical Forms
+         ============================================ -->
+    <div class="panel" data-panel="ai-medical" data-sync-panel="medicine">
+      <div class="panel-header">
+        <div class="panel-num">02</div>
+        <div class="panel-title-block">
+          <div class="eyebrow">Action Items · Athletic Training</div>
+          <h2>Medical Forms</h2>
+          <p class="desc">All medical forms must be completed in Smartabase before you can take part in team activities. Tap a form to check it off.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Action Items</span></button>
+      </div>
+
+<div class="section" data-ai-item>
+        <div class="section-header">
+          <h3>Required Medical Forms</h3>
+          <span class="count">05 forms</span>
+        </div>
+
+        <div class="callout">
+          <div class="callout-label">◆ Medical Portal Access</div>
+          <h4>Smartabase — Where Your Forms Live</h4>
+          <p>All medical forms are submitted through Smartabase, Nebraska Football's secure medical portal. <strong>Drew Hamblin will reach out directly with your login credentials and step-by-step instructions</strong> for completing your forms before arrival.</p>
+          <a class="calendar-btn" href="https://nebraska.smartabase.com/huskers/auth" target="_blank" rel="noopener" style="margin-top: 8px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Open Smartabase Portal
+          </a>
+        </div>
+
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Payment of Medical Expenses & Insurance Verification</div>
+              <div class="check-desc">Includes a clear front/back copy of your insurance card. If you don't have insurance, sign the verification stating so.</div>
+            </div>
+            <div class="check-meta">Required</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Medical History Form</div>
+              <div class="check-desc">Complete in full. Inaccurate or incomplete forms delay clearance.</div>
+            </div>
+            <div class="check-meta">Required</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Shared Responsibility & Medical Consent Form</div>
+              <div class="check-desc">If under 19, requires parent/guardian signature.</div>
+            </div>
+            <div class="check-meta">Required</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Sickle Cell Trait Test Results</div>
+              <div class="check-desc">Family physician can perform the blood test, or we can do it on-campus. Note: waiting until arrival delays your participation in strength & conditioning.</div>
+            </div>
+            <div class="check-meta">Required</div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="check-content">
+              <div class="check-text">Power of Attorney (Nebraska Medicine)</div>
+              <div class="check-desc">Required NOTARY signature in addition to parent/guardian. Allows Nebraska Medicine to treat the student-athlete in case of emergency.</div>
+            </div>
+            <div class="check-meta">Notary</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Action Items</span></button>
+      </div>
+    </div>
+
+    <!-- ============================================
          01 OPERATIONS
          ============================================ -->
     <div class="panel" data-panel="operations">
       <div class="panel-header">
-        <div class="panel-num">02</div>
+        <div class="panel-num">03</div>
         <div class="panel-title-block">
           <div class="eyebrow">Department · Football Operations</div>
           <h2>Operations</h2>
@@ -2868,10 +3393,10 @@
       <div class="section" id="ops-action-items">
         <div class="section-header">
           <h3>Action Items</h3>
-          <span class="count">05 tasks</span>
+          <span class="count">06 tasks</span>
         </div>
         <div class="actions-grid">
-          <a class="action" href="https://teamworks.com/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://teamworks.com/" target="_blank" rel="noopener">
             <div class="action-top">
               <span class="action-tag required">Required</span>
               <span class="action-arrow">→</span>
@@ -2879,7 +3404,7 @@
             <h4>Download Teamworks</h4>
             <p>Primary communications platform — calendars, schedules, travel, forms.</p>
           </a>
-          <a class="action" href="https://parking.unl.edu/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://parking.unl.edu/" target="_blank" rel="noopener">
             <div class="action-top">
               <span class="action-tag">If applicable</span>
               <span class="action-arrow">→</span>
@@ -2887,7 +3412,7 @@
             <h4>Parking Permit</h4>
             <p>Bringing a vehicle? Buy your pass through UNL Parking & Transit.</p>
           </a>
-          <a class="action" href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener">
             <div class="action-top">
               <span class="action-tag required">Required</span>
               <span class="action-arrow">→</span>
@@ -2895,7 +3420,7 @@
             <h4>Pre-Set Banking Card</h4>
             <p>Receive your athletics expense card. Direct deposit set up via MyRed.</p>
           </a>
-          <a class="action" href="https://scsapps.unl.edu/NCardOnlineApplication/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://scsapps.unl.edu/NCardOnlineApplication/" target="_blank" rel="noopener">
             <div class="action-top">
               <span class="action-tag">Pre-arrival</span>
               <span class="action-arrow">→</span>
@@ -2903,7 +3428,7 @@
             <h4>NCard Online Application</h4>
             <p>Submit your NCard application before arrival. Pickup on Move-In Day at OLC.</p>
           </a>
-          <a class="action" href="#travel-survey" data-open-panel="travel-survey" data-link="travel-survey">
+          <a class="action" data-ai-item href="#travel-survey" data-open-panel="travel-survey" data-link="travel-survey">
             <div class="action-top">
               <span class="action-tag required">Pre-arrival</span>
               <span class="action-arrow">→</span>
@@ -2911,7 +3436,7 @@
             <h4>Travel Survey</h4>
             <p>Legal name, date of birth, home address, closest airports, and TSA PreCheck number so we can book your arrival on campus. Takes about 2 minutes.</p>
           </a>
-          <a class="action" href="#all-star-survey" data-open-panel="all-star-survey">
+          <a class="action" data-ai-item href="#all-star-survey" data-open-panel="all-star-survey">
             <div class="action-top">
               <span class="action-tag required">All-Star Games</span>
               <span class="action-arrow">→</span>
@@ -2967,7 +3492,7 @@
          ============================================ -->
     <div class="panel" data-panel="travel-survey">
       <div class="panel-header">
-        <div class="panel-num">02</div>
+        <div class="panel-num">03</div>
         <div class="panel-title-block">
           <div class="eyebrow">Operations · Pre-Arrival</div>
           <h2>Travel Survey</h2>
@@ -2976,7 +3501,7 @@
       </div>
 
       <div class="section">
-        <button type="button" class="back-link" data-open-panel="operations">← Back to Operations</button>
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Operations</span></button>
 
         <form id="travelSurveyForm" class="contact-form" novalidate>
           <div class="form-row" style="grid-template-columns: 1fr 1fr 1fr;">
@@ -3050,7 +3575,7 @@
          ============================================ -->
     <div class="panel" data-panel="travel-survey-done">
       <div class="panel-header">
-        <div class="panel-num">02</div>
+        <div class="panel-num">03</div>
         <div class="panel-title-block">
           <div class="eyebrow">Operations · Travel Survey</div>
           <h2>All Set</h2>
@@ -3062,9 +3587,9 @@
           <div class="done-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h3>Submission Successful</h3>
           <p>Thank you — your travel information was received. Football Operations will use it to book your arrival on campus. If you need to correct anything, contact Operations.</p>
-          <button type="button" class="form-submit" data-open-panel="operations" data-scroll-to="ops-action-items">
+          <button type="button" class="form-submit" data-open-panel="__return__" data-lbl-operations="Return to Operations Page" data-lbl-action-items="Return to Action Items">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Return to Operations Page
+            <span class="ret-label">Return to Operations Page</span>
           </button>
         </div>
       </div>
@@ -3075,7 +3600,7 @@
          ============================================ -->
     <div class="panel" data-panel="all-star-survey">
       <div class="panel-header">
-        <div class="panel-num">02</div>
+        <div class="panel-num">03</div>
         <div class="panel-title-block">
           <div class="eyebrow">Operations · All-Star Games</div>
           <h2>All-Star Game Questionnaire</h2>
@@ -3084,7 +3609,7 @@
       </div>
 
       <div class="section">
-        <button type="button" class="back-link" data-open-panel="operations">← Back to Operations</button>
+        <button type="button" class="back-link" data-open-panel="__return__" data-lbl-operations="← Back to Operations" data-lbl-action-items="← Back to Action Items"><span class="ret-label">← Back to Operations</span></button>
 
         <form id="allStarForm" class="contact-form" novalidate>
           <div class="form-row">
@@ -3158,7 +3683,7 @@
          ============================================ -->
     <div class="panel" data-panel="all-star-done">
       <div class="panel-header">
-        <div class="panel-num">02</div>
+        <div class="panel-num">03</div>
         <div class="panel-title-block">
           <div class="eyebrow">Operations · All-Star Games</div>
           <h2>All Set</h2>
@@ -3170,9 +3695,9 @@
           <div class="done-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h3>Submission Successful</h3>
           <p>Thank you — your all-star game information was received. Football Operations will use it to plan around your dates. If anything changes, contact Operations.</p>
-          <button type="button" class="form-submit" data-open-panel="operations" data-scroll-to="ops-action-items">
+          <button type="button" class="form-submit" data-open-panel="__return__" data-lbl-operations="Return to Operations Page" data-lbl-action-items="Return to Action Items">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Return to Operations Page
+            <span class="ret-label">Return to Operations Page</span>
           </button>
         </div>
       </div>
@@ -3183,7 +3708,7 @@
          ============================================ -->
     <div class="panel" data-panel="academics">
       <div class="panel-header">
-        <div class="panel-num">03</div>
+        <div class="panel-num">04</div>
         <div class="panel-title-block">
           <div class="eyebrow">Department · Academics & Recruiting</div>
           <h2>Academics & Recruiting</h2>
@@ -3254,12 +3779,12 @@
           <span class="count">Freshmen</span>
         </div>
         <div class="actions-grid">
-          <a class="action" href="https://admissions.unl.edu/apply/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://admissions.unl.edu/apply/" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag required">Pre-Admission</span><span class="action-arrow">→</span></div>
             <h4>Apply for UNL Admission</h4>
             <p>Submit application and pay application fee.</p>
           </a>
-          <a class="action" href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://myred.nebraska.edu/psp/myred/NBL/HRMS/?cmd=login" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag required">Required</span><span class="action-arrow">→</span></div>
             <h4>Activate TrueYou Credentials</h4>
             <p>Set up your login to access MyRed.</p>
@@ -3269,17 +3794,17 @@
             <h4>Pay Enrollment Deposit</h4>
             <p>Scholarship covers fees? Submit a deferral request through MyRed.</p>
           </a>
-          <a class="action" href="https://web3.ncaa.org/ecwr3/register/CERTIFICATION?accountSubType=AMATEURISM" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://web3.ncaa.org/ecwr3/register/CERTIFICATION?accountSubType=AMATEURISM" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag required">After Oct 1</span><span class="action-arrow">→</span></div>
             <h4>NCAA Amateurism Cert.</h4>
             <p>Request final NCAA Amateurism Certification.</p>
           </a>
-          <a class="action" href="https://nse.unl.edu/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://nse.unl.edu/" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag required">Required</span><span class="action-arrow">→</span></div>
             <h4>New Student Enrollment</h4>
             <p>Register for NSE — your gateway to first-semester classes.</p>
           </a>
-          <a class="action" href="https://admissions.unl.edu/cost/financial-aid/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://admissions.unl.edu/cost/financial-aid/" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag required">Financial Aid</span><span class="action-arrow">→</span></div>
             <h4>Complete FAFSA</h4>
             <p>Required to access federal student aid.</p>
@@ -3289,7 +3814,7 @@
             <h4>Submit Immunization</h4>
             <p>Send immunization records to UNL Health Center.</p>
           </div>
-          <a class="action" href="https://duo.com/product/multi-factor-authentication-mfa/duo-mobile-app" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://duo.com/product/multi-factor-authentication-mfa/duo-mobile-app" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag">After registration</span><span class="action-arrow">→</span></div>
             <h4>Set Up Duo Mobile</h4>
             <p>Two-factor auth for TrueYou — required after class registration.</p>
@@ -3297,7 +3822,7 @@
         </div>
       </div>
 
-      <div class="section">
+      <div class="section" data-ai-item>
         <div class="section-header">
           <h3>After Graduation</h3>
           <span class="count">Transcripts</span>
@@ -3327,7 +3852,7 @@
         </div>
       </div>
 
-      <div class="section">
+      <div class="section" data-ai-item>
         <div class="section-header"><h3>Mailing Address</h3></div>
         <div class="info-list">
           <dl>
@@ -3344,7 +3869,7 @@
          ============================================ -->
     <div class="panel" data-panel="housing">
       <div class="panel-header">
-        <div class="panel-num">04</div>
+        <div class="panel-num">05</div>
         <div class="panel-title-block">
           <div class="eyebrow">Department · Player Development</div>
           <h2>Housing</h2>
@@ -3399,7 +3924,7 @@
         </div>
       </div>
 
-      <div class="section">
+      <div class="section" data-ai-item>
         <div class="section-header">
           <h3>Apply for Housing — Step by Step</h3>
           <span class="count">12 steps</span>
@@ -3457,11 +3982,11 @@
          ============================================ -->
     <div class="panel" data-panel="medicine">
       <div class="panel-header">
-        <div class="panel-num">05</div>
+        <div class="panel-num">06</div>
         <div class="panel-title-block">
-          <div class="eyebrow">Department · Athletic Medicine</div>
+          <div class="eyebrow">Department · Athletic Medicine &amp; Sports Science</div>
           <h2>Athletic Training</h2>
-          <p class="desc">Medical forms, onboarding appointments, sickle cell testing, and medical clearance. You will not be able to participate in any team activities until your medical paperwork is complete and submitted on Teamworks.</p>
+          <p class="desc">Medical forms, onboarding appointments, sickle cell testing, and medical clearance. You will not be able to participate in any team activities until your medical paperwork is complete and submitted on Teamworks. Sports Science baseline testing is included below.</p>
         </div>
       </div>
 
@@ -3497,7 +4022,7 @@
         </div>
       </div>
 
-      <div class="section">
+      <div class="section" data-ai-item>
         <div class="section-header">
           <h3>Required Medical Forms</h3>
           <span class="count">05 forms</span>
@@ -3557,66 +4082,15 @@
         </div>
       </div>
 
-      <div class="section">
+<div class="section">
         <div class="section-header">
-          <h3>Insurance Policy</h3>
-          <span class="count">read carefully</span>
-        </div>
-
-        <div class="callout">
-          <div class="callout-label">◆ The 30-Day Rule (Parents: This Is the Deadline)</div>
-          <h4>EOBs Must Be Submitted to Athletic Medicine Within 30 Days</h4>
-          <p>After your primary insurer processes a claim and sends an Explanation of Benefits (EOB), forward it — along with any remaining balance statements — to the Athletic Department within <strong>30 days of receipt</strong>. Miss this window and Nebraska's secondary coverage may not pay. This is the single most important administrative deadline in this section.</p>
-        </div>
-
-        <div class="info-list">
-          <dl>
-            <dt>How payment works</dt>
-            <dd><strong>1.</strong> Your personal insurance is <em>primary</em> — it must be billed first for any athletically-related injury.</dd>
-            <dd><strong>2.</strong> Once your primary insurer responds (paid, partial, or denied), the Athletic Department's <strong>secondary/excess</strong> policy kicks in to cover the remainder.</dd>
-            <dd><strong>3.</strong> Submit the EOB + any balance statements to Athletic Medicine within <strong>30 days</strong>. Nebraska handles the rest. Athletes and families <strong>do not pay out-of-pocket</strong> for athletically-related injuries.</dd>
-
-            <dt>What's covered</dt>
-            <dd>Injuries sustained during official, supervised football activities — practice, games, team workouts, team travel.</dd>
-
-            <dt>Off-season &amp; non-team activity</dt>
-            <dd>Injuries during off-season conditioning or non-team activity are reviewed <strong>case-by-case</strong>. Always report new injuries to your athletic trainer immediately so the case can be opened and documented properly.</dd>
-
-            <dt>Non-athletic medical care</dt>
-            <dd>Sickness, dental, vision, mental health, prescriptions, and any non-football medical needs are the student-athlete's responsibility. Personal health insurance is <strong>strongly required</strong> — the UNL student plan is one option if family coverage isn't available.</dd>
-
-            <dt>Who to contact</dt>
-            <dd>Drew Hamblin, Head Football Athletic Trainer · <a href="tel:6086281947">608.628.1947</a> · <a href="mailto:dhamblin@huskers.com">dhamblin@huskers.com</a></dd>
-            <dt>Fax (for forms &amp; EOBs)</dt>
-            <dd><strong>402.472.2006</strong> — primary line for submitting insurance forms, EOBs, and physical claim documents to Athletic Medicine.</dd>
-          </dl>
-        </div>
-      </div>
-    </div>
-
-    <!-- ============================================
-         05 SPORTS SCIENCE
-         ============================================ -->
-    <div class="panel" data-panel="science">
-      <div class="panel-header">
-        <div class="panel-num">06</div>
-        <div class="panel-title-block">
-          <div class="eyebrow">Department · Sports Science & Performance</div>
-          <h2>Sports Science</h2>
-          <p class="desc">Performance testing, baseline screenings, and the data side of being a Husker. Sway testing, physicals, and concussion baselines all happen during onboarding to set you up for safe, optimized training.</p>
-        </div>
-      </div>
-
-      <div class="callout">
-        <div class="callout-label">★ Coming soon</div>
-        <h4>Department Lead & Resources Pending</h4>
-        <p>This section is being built out as Sports Science contacts and protocols are finalized. In the meantime, baseline performance testing is scheduled on Move-In Day at OLC alongside Athletic Training.</p>
-      </div>
-
-      <div class="section">
-        <div class="section-header">
-          <h3>Move-In Day Sports Science Stations</h3>
+          <h3>Sports Science · Move-In Day Stations</h3>
           <span class="count">04 stations</span>
+        </div>
+        <div class="callout" style="margin-bottom: 20px;">
+          <div class="callout-label">★ Sports Science &amp; Performance</div>
+          <h4>Baseline Testing Happens at Move-In</h4>
+          <p>Performance testing, baseline screenings, and the data side of being a Husker. Physicals, sickle cell testing, concussion baselines, and sway testing all happen during onboarding on Move-In Day at the OLC, alongside Athletic Training, to set you up for safe, optimized training.</p>
         </div>
         <div class="checklist">
           <div class="check-item">
@@ -3654,6 +4128,41 @@
         </div>
       </div>
 
+      <div class="section">
+        <div class="section-header">
+          <h3>Insurance Policy</h3>
+          <span class="count">read carefully</span>
+        </div>
+
+        <div class="callout">
+          <div class="callout-label">◆ The 30-Day Rule (Parents: This Is the Deadline)</div>
+          <h4>EOBs Must Be Submitted to Athletic Medicine Within 30 Days</h4>
+          <p>After your primary insurer processes a claim and sends an Explanation of Benefits (EOB), forward it — along with any remaining balance statements — to the Athletic Department within <strong>30 days of receipt</strong>. Miss this window and Nebraska's secondary coverage may not pay. This is the single most important administrative deadline in this section.</p>
+        </div>
+
+        <div class="info-list">
+          <dl>
+            <dt>How payment works</dt>
+            <dd><strong>1.</strong> Your personal insurance is <em>primary</em> — it must be billed first for any athletically-related injury.</dd>
+            <dd><strong>2.</strong> Once your primary insurer responds (paid, partial, or denied), the Athletic Department's <strong>secondary/excess</strong> policy kicks in to cover the remainder.</dd>
+            <dd><strong>3.</strong> Submit the EOB + any balance statements to Athletic Medicine within <strong>30 days</strong>. Nebraska handles the rest. Athletes and families <strong>do not pay out-of-pocket</strong> for athletically-related injuries.</dd>
+
+            <dt>What's covered</dt>
+            <dd>Injuries sustained during official, supervised football activities — practice, games, team workouts, team travel.</dd>
+
+            <dt>Off-season &amp; non-team activity</dt>
+            <dd>Injuries during off-season conditioning or non-team activity are reviewed <strong>case-by-case</strong>. Always report new injuries to your athletic trainer immediately so the case can be opened and documented properly.</dd>
+
+            <dt>Non-athletic medical care</dt>
+            <dd>Sickness, dental, vision, mental health, prescriptions, and any non-football medical needs are the student-athlete's responsibility. Personal health insurance is <strong>strongly required</strong> — the UNL student plan is one option if family coverage isn't available.</dd>
+
+            <dt>Who to contact</dt>
+            <dd>Drew Hamblin, Head Football Athletic Trainer · <a href="tel:6086281947">608.628.1947</a> · <a href="mailto:dhamblin@huskers.com">dhamblin@huskers.com</a></dd>
+            <dt>Fax (for forms &amp; EOBs)</dt>
+            <dd><strong>402.472.2006</strong> — primary line for submitting insurance forms, EOBs, and physical claim documents to Athletic Medicine.</dd>
+          </dl>
+        </div>
+      </div>
     </div>
 
     <!-- ============================================
@@ -3700,12 +4209,10 @@
         </div>
       </div>
 
-      <div class="section">
+            <div class="section">
         <div class="section-header"><h3>Husker Bucks</h3><span class="count">Weekly stipend</span></div>
         <div class="info-list">
           <dl>
-            <dt>Fall Allowance</dt><dd>$80 / week</dd>
-            <dt>Spring Allowance</dt><dd>$95 / week</dd>
             <dt>Where to use</dt><dd>Approved grocery stores and restaurants around Lincoln</dd>
             <dt>App</dt><dd>Red Card Athletics — login provided on arrival</dd>
             <dt>Notes</dt><dd>Amount and structure may be adjusted seasonally based on training calendar</dd>
@@ -3716,12 +4223,12 @@
       <div class="section">
         <div class="section-header"><h3>Action Items</h3></div>
         <div class="actions-grid">
-          <a class="action" href="https://www.redcardathletics.com/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://www.redcardathletics.com/" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag required">Required</span><span class="action-arrow">→</span></div>
             <h4>Download Red Card Athletics App</h4>
             <p>Track your Husker Bucks balance and approved spending.</p>
           </a>
-          <a class="action" href="mailto:kcoggin@huskers.com?subject=Dietary%20Restrictions%20%26%20Religious%20Beliefs&body=Hi%20Kristin%2C%0A%0AMy%20name%20is%3A%20%0A%0ADietary%20restrictions%20%2F%20allergies%20%2F%20intolerances%3A%0A%0AReligious%20beliefs%20that%20affect%20my%20meals%3A%0A%0AThanks%2C%0A">
+          <a class="action" data-ai-item href="mailto:kcoggin@huskers.com?subject=Dietary%20Restrictions%20%26%20Religious%20Beliefs&body=Hi%20Kristin%2C%0A%0AMy%20name%20is%3A%20%0A%0ADietary%20restrictions%20%2F%20allergies%20%2F%20intolerances%3A%0A%0AReligious%20beliefs%20that%20affect%20my%20meals%3A%0A%0AThanks%2C%0A">
             <div class="action-top"><span class="action-tag required">Pre-arrival</span><span class="action-arrow">→</span></div>
             <h4>Email Dietary Restrictions &amp; Religious Beliefs</h4>
             <p>Email Kristin Coggin at <strong>kcoggin@huskers.com</strong> with any dietary restrictions, allergies, intolerances, and religious beliefs that affect your meals. Opens a pre-filled draft.</p>
@@ -3778,7 +4285,7 @@
       <div class="section">
         <div class="section-header"><h3>Equipment Action Items</h3><span class="count">04 tasks</span></div>
         <div class="actions-grid">
-          <a class="action" href="https://mysizes.teamworksim.com/40/Athlete" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://mysizes.teamworksim.com/40/Athlete" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag required">Pre-arrival</span><span class="action-arrow">→</span></div>
             <h4>Submit adidas Sizing</h4>
             <p>Submit your gear sizes through the Teamworks sizing portal before arrival. <strong>Access Code: Huskers2027</strong> · Log in using the email address Jay Terry sent the invite to.</p>
@@ -3902,7 +4409,7 @@
             <h4>Duo Mobile</h4>
             <p>Two-factor authentication for TrueYou / MyRed.</p>
           </a>
-          <a class="action" href="https://nebraska.edu/services/canvas/" target="_blank" rel="noopener">
+          <a class="action" data-ai-item href="https://nebraska.edu/services/canvas/" target="_blank" rel="noopener">
             <div class="action-top"><span class="action-tag">Recommended</span><span class="action-arrow">→</span></div>
             <h4>Canvas Student</h4>
             <p>Course content, assignments, and grades.</p>
@@ -4479,7 +4986,7 @@
           <div class="recipient">
             <div class="recipient-role">Operations</div>
             <div class="recipient-name">Clayton Caniford</div>
-            <div class="recipient-title">Assistant Director of Football Operations</div>
+            <div class="recipient-title">Director of Business Operations</div>
           </div>
         </div>
       </div>
@@ -4829,7 +5336,8 @@
   function checkItemId(item) {
     // Use the check-text content + parent panel as a stable id
     const text = item.querySelector('.check-text')?.textContent.trim() || '';
-    const panel = item.closest('.panel')?.dataset.panel || 'unknown';
+    const pEl = item.closest('.panel');
+    const panel = pEl?.dataset.syncPanel || pEl?.dataset.panel || 'unknown';
     return text ? `${panel}::${text}` : null;
   }
 
@@ -4843,6 +5351,21 @@
 
   // Restore on load
   loadProgress();
+
+  // Keep duplicate checklist items (the Action Items pop-outs) in sync with the originals
+  document.querySelectorAll('.check-item').forEach(item => {
+    item.addEventListener('click', () => {
+      setTimeout(() => {
+        const id = checkItemId(item);
+        if (!id) return;
+        const state = item.classList.contains('done');
+        document.querySelectorAll('.check-item').forEach(o => {
+          if (o !== item && checkItemId(o) === id) o.classList.toggle('done', state);
+        });
+        saveProgress();
+      }, 0);
+    });
+  });
 
   // ========== RESET BUTTON ==========
   document.getElementById('resetBtn')?.addEventListener('click', () => {
@@ -4940,7 +5463,7 @@
         { title: 'First Team Meeting', start: '20270110T180000', end: '20270110T193000', location: 'Team Room, OLC', desc: 'Policies & Procedures · Players only.' },
         { title: 'First Workout · Winter Semester', start: '20270111T070000', end: '20270111T093000', location: 'Alloy Weight Room, OLC', desc: 'First official Husker workout. Schedule and lift partners distributed via Teamworks.' }
       ];
-      downloadICS('Nebraska_Football_Onboarding_2027.ics', events);
+      downloadICS('Nebraska_Football_Onboarding_2027.ics', events.map(ev => Object.assign({}, ev, { title: 'Tentative: ' + ev.title })));
       flashConfirm(btn);
     });
   });
@@ -5067,47 +5590,99 @@
     });
   })();
 
-  // ========== SUB-PAGE NAVIGATION (Travel Survey) ==========
-  // Survey pages live outside the sidebar; Operations stays highlighted while on them.
+  // ========== MOBILE MENU ==========
   (function() {
-    var SUBPAGES = ['travel-survey', 'travel-survey-done', 'all-star-survey', 'all-star-done'];
+    var sidebar = document.querySelector('.sidebar');
+    var toggle = document.getElementById('navToggle');
+    var cur = document.getElementById('navCurrent');
+    if (!sidebar || !toggle) return;
+    function label() {
+      var a = document.querySelector('.nav-item.active button');
+      if (a && cur) cur.textContent = a.textContent.replace(/^\s*\d+\s*/, '').trim();
+    }
+    function close() { sidebar.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    toggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = sidebar.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navItems.forEach(function(n) {
+      n.addEventListener('click', function() { close(); setTimeout(label, 0); });
+    });
+    document.addEventListener('click', function(e) { if (!sidebar.contains(e.target)) close(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+    window.updateNavLabel = label;
+    label();
+  })();
+
+  // ========== SUB-PAGE NAVIGATION (surveys + Action Items pop-outs) ==========
+  // These screens live outside the sidebar. We remember where the player came from
+  // (and how far they had scrolled) so "Back" puts them exactly where they were.
+  (function() {
+    var SUBPAGES = ['travel-survey', 'travel-survey-done', 'all-star-survey', 'all-star-done',
+                    'ai-transcripts', 'ai-housing', 'ai-medical'];
     var returnPanel = 'operations';
+    var returnScroll = 0;
+    try { history.scrollRestoration = 'manual'; } catch (err) {}
 
     function activeName() {
       var a = document.querySelector('.panel.active');
       return a ? a.dataset.panel : 'overview';
     }
 
+    function setReturnLabels() {
+      document.querySelectorAll('[data-open-panel="__return__"]').forEach(function(btn) {
+        var span = btn.querySelector('.ret-label');
+        if (!span) return;
+        var text = returnPanel === 'action-items' ? btn.dataset.lblActionItems : btn.dataset.lblOperations;
+        if (text) span.textContent = text;
+      });
+    }
+
     function showPanel(name) {
-      var navTab = SUBPAGES.indexOf(name) !== -1 ? 'operations' : name;
+      var navTab = SUBPAGES.indexOf(name) !== -1 ? returnPanel : name;
       navItems.forEach(function(n) { n.classList.toggle('active', n.dataset.tab === navTab); });
       panels.forEach(function(p) { p.classList.toggle('active', p.dataset.panel === name); });
-      window.scrollTo({ top: document.querySelector('.main').offsetTop - 20, behavior: 'auto' });
+      if (window.updateNavLabel) window.updateNavLabel();
+      window.scrollTo({ top: document.querySelector('.main').offsetTop - 20, behavior: 'instant' });
     }
     window.showPortalPanel = showPanel;
 
-    function go(name, scrollToId) {
-      if (SUBPAGES.indexOf(activeName()) === -1) returnPanel = activeName();
+    function go(name) {
+      if (name === '__return__') {
+        var target = returnPanel;
+        showPanel(target);
+        window.scrollTo({ top: returnScroll, behavior: 'instant' });
+        try { history.pushState({ panel: target }, '', '#' + target); } catch (err) {}
+        return;
+      }
+      if (SUBPAGES.indexOf(activeName()) === -1) {
+        returnPanel = activeName();
+        returnScroll = window.scrollY || window.pageYOffset || 0;
+        setReturnLabels();
+      }
       showPanel(name);
       try { history.pushState({ panel: name }, '', '#' + name); } catch (err) {}
-      if (scrollToId) {
-        var el = document.getElementById(scrollToId);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
     }
     window.goPortalPanel = go;
 
     document.querySelectorAll('[data-open-panel]').forEach(function(el) {
       el.addEventListener('click', function(e) {
         e.preventDefault();
-        go(el.dataset.openPanel, el.dataset.scrollTo);
+        go(el.dataset.openPanel);
       });
     });
 
     window.addEventListener('popstate', function(e) {
       var name = (e.state && e.state.panel) ? e.state.panel : returnPanel;
       showPanel(name);
+      // Going back to the screen the player came from: put them where they were
+      if (SUBPAGES.indexOf(name) === -1 && name === returnPanel) {
+        window.scrollTo({ top: returnScroll, behavior: 'instant' });
+      }
     });
+
+    setReturnLabels();
   })();
 
   // ========== TRAVEL SURVEY -> GOOGLE SHEET ==========
@@ -5171,6 +5746,7 @@
       }
 
       var payload = {
+        form: 'travel',
         legalFirstName: val('tsFirst'),
         legalMiddleName: val('tsMiddle'),
         legalLastName: val('tsLast'),
@@ -5327,7 +5903,7 @@
 
     // PASTE the Google Apps Script Web App URL for the All-Star sheet here (ends in /exec).
     // See AllStar_AppsScript.gs for setup instructions.
-    var ALLSTAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbycUgDbRk8urblM9WSesT46IT3Jb1hBLqaLUTPuVh-jbgc7Fb0BSH2NnWTWwxxVGNZw3A/exec';
+    var ALLSTAR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiwP1_1brWgRw2z-0lZ89nRSXBjf6vd9y58GUIZWQU6nDvwHZ-uBi_4di9eSfH8sT0/exec';
 
     var errorBox = document.getElementById('allStarError');
     var submitBtn = document.getElementById('allStarSubmit');
@@ -5412,6 +5988,7 @@
       }
 
       var payload = {
+        form: 'allstar',
         firstName: val('asFirst'),
         lastName: val('asLast'),
         selectedForAllStar: selected,
